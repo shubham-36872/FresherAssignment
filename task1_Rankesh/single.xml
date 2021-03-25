@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Audit xmlns:noNamespaceSchemaLocation="schema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <auditSubscribers>
+    <MSISDN>11234567890</MSISDN>
+    <OperationType>ADD</OperationType>
+    <ServiceIndication>VM_SUBPROFILE</ServiceIndication>
+  </auditSubscribers>
+</Audit>
