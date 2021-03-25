@@ -1,0 +1,49 @@
+sample_input.csv
+11234567890,,DELETE,VM_SUBPROFILE,20200416225407219+0530,SUCCESS
+11234567893,,ADD,VM_SUBPROFILE,20200416225344954+0530,SUCCESS
+11234567894,,DELETE,VM_SUBPROFILE,20200416225407219+0530,SUCCESS
+11234567895,,ADD,VM_SUBPROFILE,20200416225344954+0530,SUCCESS
+11234567897,,DELETE,VM_SUBPROFILE,20200416225407219+0530,SUCCESS
+11234567894,,ADD,VM_SUBPROFILE,20200416225344954+0530,SUCCESS
+11234567890,,DELETE,SMS_SUBPROFILE,20200416225407219+0530,SUCCESS
+11234567893,,ADD,SMS_SUBPROFILE,20200416225344954+0530,SUCCESS
+11234567894,,DELETE,SMS_SUBPROFILE,20200416225407219+0530,SUCCESS
+
+
+requirements
+----------------
+set 1
+-----
+1. python script to filter the unique MSISDN(mobile number- first column data in the list), operation type (ADD/ DELETE/ MODIFY) and service indication (VM_SUBPROFILE/SMS_SUBPROFILE) 
+2. the script to accept a configuration to filter particullar service indication based on a configuration (which is provided in a external file for the python script)
+
+set 2
+-----
+1. Based on the filtered out put we need to prepare a xml like below 
+<?xml version="1.0" encoding="UTF-8"?>
+<Audit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
+   <auditSubscribers>
+      <MSISDN>11234567890</MSISDN>
+      <OperationType>DELETE</OperationType>
+      <ServiceIndication>VM_SUBPROFILE</ServiceIndication>
+   </auditSubscribers>
+</Audit>
+
+2. On top of the above xml data, multiple set of 'auditSubscribers' sub documents can be present, which is limited based on a batch size configuration(if batch size is 2 then two auditSubscribers will be present and if it is 5 then max 5 auditSubscribers can be present based on the filtered input data)
+<?xml version="1.0" encoding="UTF-8"?>
+<Audit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
+   <auditSubscribers>
+      <MSISDN>11234567890</MSISDN>
+      <OperationType>DELETE</OperationType>
+      <ServiceIndication>VM_SUBPROFILE</ServiceIndication>
+   </auditSubscribers>
+   <auditSubscribers>
+      <MSISDN>11234567893</MSISDN>
+      <OperationType>ADD</OperationType>
+      <ServiceIndication>VM_SUBPROFILE</ServiceIndication>
+   </auditSubscribers>
+</Audit>
+
+set 3
+-----
+1. the logs / debugging prints you are writing should go to a seperate log files instead of printing in the standard output.
